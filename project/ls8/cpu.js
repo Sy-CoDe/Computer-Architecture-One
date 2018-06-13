@@ -1,6 +1,11 @@
 /**
  * LS-8 v2.0 emulator skeleton code
  */
+const fs = require("fs");
+
+const LDI = 0b10011001;
+const PRN = 0b01000011;
+const HLT = 0b00000001;
 
 /**
  * Class for simulating a simple Computer (CPU & memory)
@@ -53,8 +58,20 @@ class CPU {
    */
   alu(op, regA, regB) {
     switch (op) {
+      case "ADD":
+        return this.ram.read(regA) + this.ram.read(regB);
+        break;
+      case "SUB":
+        return this.ram.read(regA) - this.ram.read(regB);
+        break;
       case "MUL":
-        // !!! IMPLEMENT ME
+        return this.ram.read(regA) * this.ram.read(regB);
+        break;
+      case "INC":
+        return this.ram.read(regA) + 1;
+        break;
+      case "DEC":
+        return this.ram.read(regA) - 1;
         break;
     }
   }
@@ -98,6 +115,10 @@ class CPU {
       case HLT:
         this.stopClock();
         //this.PC += 1;
+        break;
+
+      case 168:
+        this.ram.write(operandA, this.alu("ADD", operandA, operandB));
         break;
 
       default:
