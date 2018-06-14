@@ -3,9 +3,36 @@
  */
 const fs = require("fs");
 
-const LDI = 0b10011001;
-const PRN = 0b01000011;
-const HLT = 0b00000001;
+const LDI = 0b10011001;  // Load R Immediate
+const PRN = 0b01000011;  // Print numeric register
+const HLT = 0b00000001;  // Halt the CPU
+const ADD  = 0b10101000; // ADD R R
+const AND  = 0b10110011; // AND R R
+const CALL = 0b01001000; // CALL R
+const CMP  = 0b10100000; // CMP R R
+const DEC  = 0b01111001; // DEC R
+const DIV  = 0b10101011; // DIV R R
+const INC  = 0b01111000; // INC R
+const INT  = 0b01001010; // Software interrupt R
+const IRET = 0b00001011; // Return from interrupt
+const JEQ  = 0b01010001; // JEQ R
+const JGT  = 0b01010100; // JGT R
+const JLT  = 0b01010011; // JLT R
+const JMP  = 0b01010000; // JMP R
+const JNE  = 0b01010010; // JNE R
+const LD   = 0b10011000; // Load R,R
+const MOD  = 0b10101100; // MOD R R
+const MUL  = 0b10101010; // MUL R,R
+const NOP  = 0b00000000; // NOP
+const NOT  = 0b01110000; // NOT R
+const OR   = 0b10110001; // OR R R
+const POP  = 0b01001100; // Pop R
+const PRA  = 0b01000010; // Print alpha char
+const PUSH = 0b01001101; // Push R
+const RET  = 0b00001001; // Return
+const ST   = 0b10011010; // Store R,R
+const SUB  = 0b10101001; // SUB R R
+const XOR  = 0b10110010; // XOR R R
 
 /**
  * Class for simulating a simple Computer (CPU & memory)
@@ -21,6 +48,8 @@ class CPU {
 
     // Special-purpose registers
     this.PC = 0; // Program Counter
+    this.reg.IR = 0; 
+    this.reg.FL = 0; 
   }
 
   /**
